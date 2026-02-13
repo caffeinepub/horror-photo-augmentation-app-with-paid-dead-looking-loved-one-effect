@@ -1,0 +1,129 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 3,
+  "summary": "Photo-editing app that augments user-uploaded photos with realistic horror/paranormal elements, with a paid tier for additional effects.",
+  "existing_features": [
+    {
+      "id": "feature-create-a-photo-editor-flow-that-lets-a-signed-in-user-select-upload-an-existing-photo-and-see-it-rendered-in-an-editing-canvas-with-basic-controls-zoom-pan-reset-view",
+      "title": "Create a photo editor flow that lets a signed-in user select/upload an existing photo and see it rendered in an editing canvas with basic controls (zoom, pan, reset view).",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-library-of-realistic-horror-overlay-effects-that-can-be-added-on-top-of-the-user-s-photo-1-creepy-shadow-man-2-ghost-entity-3-glowing-eyes-and-4-a-disembodied-hand-positioned-as-if-on-a-loved-one-s-shoulder",
+      "title": "Implement a library of realistic horror overlay effects that can be added on top of the user’s photo: (1) creepy shadow man, (2) ghost entity, (3) glowing eyes, and (4) a disembodied hand positioned as if on a loved one’s shoulder.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-for-each-added-effect-layer-provide-per-layer-controls-move-scale-rotate-flip-horizontally-opacity-intensity-and-layer-ordering-bring-forward-send-backward",
+      "title": "For each added effect layer, provide per-layer controls: move, scale, rotate, flip horizontally, opacity/intensity, and layer ordering (bring forward/send backward).",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-an-export-feature-that-generates-a-final-composited-image-for-download-e-g-png-from-the-user-s-edited-photo-and-effect-layers",
+      "title": "Add an export feature that generates a final composited image for download (e.g., PNG) from the user’s edited photo and effect layers.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-paid-tier-that-unlocks-an-additional-effect-inserting-a-dead-looking-loved-one-into-the-user-s-photo-the-ui-must-clearly-mark-this-as-a-paid-locked-effect-for-non-paid-users-and-prevent-export-of-results-containing-the-paid-effect-unless-the-user-is-paid",
+      "title": "Implement a paid tier that unlocks an additional effect: inserting a ‘dead-looking loved one’ into the user’s photo. The UI must clearly mark this as a paid/locked effect for non-paid users and prevent export of results containing the paid effect unless the user is paid.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-an-effect-workflow-for-the-paid-dead-looking-loved-one-feature-that-allows-the-user-to-upload-select-a-second-image-the-loved-one-and-place-it-into-the-base-photo-as-a-separate-layer-with-the-same-layer-controls-as-other-effects-move-scale-rotate-opacity-order",
+      "title": "Create an effect workflow for the paid ‘dead-looking loved one’ feature that allows the user to upload/select a second image (the loved one) and place it into the base photo as a separate layer with the same layer controls as other effects (move/scale/rotate/opacity/order).",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-basic-project-persistence-for-signed-in-users-allow-saving-an-edit-session-base-photo-reference-effect-layer-configuration-metadata-and-listing-previously-saved-projects-for-reopening-in-the-editor",
+      "title": "Add basic project persistence for signed-in users: allow saving an edit session (base photo reference + effect layer configuration metadata) and listing previously saved projects for reopening in the editor.",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-user-facing-safety-consent-messaging-and-confirmations-before-editing-exporting-require-the-user-to-confirm-they-have-rights-permission-to-use-the-photos-they-upload-and-that-the-edits-are-for-entertainment-fictional-effects-use-english-for-all-user-facing-text",
+      "title": "Add user-facing safety/consent messaging and confirmations before editing/exporting: require the user to confirm they have rights/permission to use the photos they upload and that the edits are for entertainment/fictional effects. Use English for all user-facing text.",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-establish-a-coherent-distinct-visual-theme-for-the-ui-colors-typography-layout-appropriate-for-a-horror-paranormal-photo-editor-and-apply-it-consistently-across-landing-editor-and-upgrade-surfaces-avoid-a-blue-purple-default-palette",
+      "title": "Establish a coherent, distinct visual theme for the UI (colors, typography, layout) appropriate for a horror/paranormal photo editor and apply it consistently across landing, editor, and upgrade surfaces (avoid a blue/purple default palette).",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-render-the-generated-static-images-from-imagerequirements-required-as-part-of-the-frontend-experience-e-g-app-logo-and-a-subtle-background-hero-visual-stored-under-frontend-public-assets-generated-and-referenced-directly-by-the-frontend",
+      "title": "Render the generated static images (from imageRequirements.required) as part of the frontend experience (e.g., app logo and a subtle background/hero visual), stored under frontend/public/assets/generated and referenced directly by the frontend.",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Allow users to use existing photos and insert realistic creepy effects (shadow man, ghost entity, glowing eyes, disembodied hand on a loved one's shoulder).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Paid option: insert a dead-looking loved one into the user's photo.",
+      "reqIds": [],
+      "status": "pending"
+    }
+  ],
+  "architectural_notes": [],
+  "known_issues": [],
+  "isFixRequest": false,
+  "imageRequirements": "## Required Images\n- Spooky camera logo with subtle shadow silhouette and faint mist (app-logo.dim_512x512.png)\n- Dark grainy film-texture background with faint fog and vignette (bg-grain-fog.dim_1920x1080.png)\n- Set of four semi-realistic paranormal overlay assets: shadow man, ghost entity, glowing eyes pair, disembodied hand (effects-pack-preview.dim_1600x900.png)",
+  "generatedImages": [
+    {
+      "filename": "app-logo.dim_512x512.png",
+      "description": "Spooky camera logo with subtle shadow silhouette and faint mist",
+      "targetWidth": 512,
+      "targetHeight": 512
+    },
+    {
+      "filename": "bg-grain-fog.dim_1920x1080.png",
+      "description": "Dark grainy film-texture background with faint fog and vignette",
+      "targetWidth": 1920,
+      "targetHeight": 1080
+    },
+    {
+      "filename": "effects-pack-preview.dim_1600x900.png",
+      "description": "Set of four semi-realistic paranormal overlay assets: shadow man, ghost entity, glowing eyes pair, disembodied hand",
+      "targetWidth": 1600,
+      "targetHeight": 900
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "Horror Photo Augmentation App with Paid ‘Dead-Looking Loved One’ Effect",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

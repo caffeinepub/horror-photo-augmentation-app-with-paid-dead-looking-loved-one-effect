@@ -1,0 +1,363 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Horror Photo Augmentation Editor (Frontend)",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "summary": "Provide a signed-in photo editor flow with image selection/upload and an editing canvas with zoom, pan, and reset view.",
+      "acceptanceCriteria": [
+        "User can upload/select an image file and see it displayed in an editor view",
+        "User can zoom in/out and pan the canvas",
+        "User can reset the view to fit the image"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "create",
+          "description": "Create the app shell that gates the editor behind Internet Identity sign-in, provides navigation between landing/projects/editor surfaces, and routes into the editor with a selected image or reopened project."
+        },
+        {
+          "path": "frontend/src/components/auth/LoginButton.tsx",
+          "operation": "create",
+          "description": "Add a login/logout button using the authorization component’s frontend authentication guidance (Internet Identity) to support signed-in-only access to editor data. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/editor/PhotoEditorPage.tsx",
+          "operation": "create",
+          "description": "Implement an editor page container with an image picker (file input) that loads the base photo into an editor workspace, initializing default zoom/pan state and exposing reset-to-fit."
+        },
+        {
+          "path": "frontend/src/components/editor/CanvasViewport.tsx",
+          "operation": "create",
+          "description": "Create the interactive viewport that renders the base image into a canvas-like stage and supports zoom (wheel/buttons), pan (drag), and reset view (fit-to-image), while hosting effect layers."
+        },
+        {
+          "path": "frontend/src/components/editor/hooks/useImageFile.ts",
+          "operation": "create",
+          "description": "Add a hook/util for reading local image files, extracting dimensions, producing a displayable object URL, and returning image decode readiness for editor initialization."
+        },
+        {
+          "path": "frontend/src/components/editor/state/editorTypes.ts",
+          "operation": "create",
+          "description": "Define shared frontend-only types for editor state (base image, viewport transform, layer model) to be reused across effects, export, and persistence."
+        }
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "summary": "Implement an effects library panel with four realistic horror overlay effects that can be added as removable layers on top of the base photo.",
+      "acceptanceCriteria": [
+        "User can add each of the four effects from an effects panel",
+        "Each added effect appears as a separate layer on the photo",
+        "User can remove an effect after adding it"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/editor/EffectsPanel.tsx",
+          "operation": "create",
+          "description": "Add an effects library UI that lists the four overlay effects (creepy shadow man, ghost entity, glowing eyes, disembodied hand) and allows adding them as new layers and removing existing layers."
+        },
+        {
+          "path": "frontend/src/components/editor/effects/effectsCatalog.ts",
+          "operation": "create",
+          "description": "Create a centralized catalog describing each effect (id, display name, default placement, default opacity, and static asset reference) used by the editor for consistent layer creation."
+        },
+        {
+          "path": "frontend/public/assets/effects/shadow-man.png",
+          "operation": "create",
+          "description": "Add the static overlay asset for the 'creepy shadow man' effect for use as an image layer in the editor."
+        },
+        {
+          "path": "frontend/public/assets/effects/ghost-entity.png",
+          "operation": "create",
+          "description": "Add the static overlay asset for the 'ghost entity' effect for use as an image layer in the editor."
+        },
+        {
+          "path": "frontend/public/assets/effects/glowing-eyes.png",
+          "operation": "create",
+          "description": "Add the static overlay asset for the 'glowing eyes' effect for use as an image layer in the editor."
+        },
+        {
+          "path": "frontend/public/assets/effects/disembodied-hand.png",
+          "operation": "create",
+          "description": "Add the static overlay asset for the 'disembodied hand on shoulder' effect for use as an image layer in the editor."
+        },
+        {
+          "path": "frontend/src/components/editor/LayerStack.tsx",
+          "operation": "create",
+          "description": "Implement rendering of the base photo plus a stack of effect layers, where each effect is represented as a distinct layer object and can be toggled/removed."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Provide per-layer controls for transforms and ordering: move, scale, rotate, flip horizontally, opacity/intensity, and bring forward/send backward.",
+      "acceptanceCriteria": [
+        "User can reposition, resize, and rotate an effect layer",
+        "User can adjust opacity/intensity for an effect layer",
+        "User can reorder multiple effect layers so one renders above/below another"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/editor/LayerInspector.tsx",
+          "operation": "create",
+          "description": "Create a per-layer inspector UI (select layer, adjust opacity/intensity, flip, numeric controls, and ordering actions) and wire it to editor state."
+        },
+        {
+          "path": "frontend/src/components/editor/LayerHandles.tsx",
+          "operation": "create",
+          "description": "Implement direct manipulation controls for the selected layer (drag to move, handles for scale/rotate) applied to the layer’s transform in editor state."
+        },
+        {
+          "path": "frontend/src/components/editor/state/editorReducer.ts",
+          "operation": "create",
+          "description": "Add a reducer/action set for layer updates (move/scale/rotate/flip/opacity), selection, and layer ordering (bring forward/send backward) to keep behavior consistent across UI controls."
+        },
+        {
+          "path": "frontend/src/components/editor/LayerStack.tsx",
+          "operation": "modify",
+          "description": "Update layer rendering to respect ordering and per-layer transforms (translation/scale/rotation/flip) and opacity values from the editor state."
+        }
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "summary": "Export the edited photo as a final composited PNG including the base photo and all visible effect layers with current transforms and opacity.",
+      "acceptanceCriteria": [
+        "User can click an Export/Download action to save the edited image",
+        "Exported image includes the base photo and all visible effects with the current transforms and opacity settings"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/editor/ExportButton.tsx",
+          "operation": "create",
+          "description": "Add an Export/Download control that triggers compositing and downloads the result as a PNG, with disabled/loading states and user-facing English messaging."
+        },
+        {
+          "path": "frontend/src/components/editor/export/compositeToPng.ts",
+          "operation": "create",
+          "description": "Implement client-side compositing that renders the base image and all visible layers into an offscreen canvas applying each layer’s transforms and opacity, returning a PNG blob for download."
+        },
+        {
+          "path": "frontend/src/components/editor/PhotoEditorPage.tsx",
+          "operation": "modify",
+          "description": "Wire the export control into the editor page so it uses the current editor state and the same layer ordering/visibility rules as the on-screen preview."
+        }
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "summary": "Gate a paid ‘dead-looking loved one’ effect behind per-user paid status, clearly mark it as locked for non-paid users, and prevent export when the paid effect is present without paid access.",
+      "acceptanceCriteria": [
+        "Non-paid users see the ‘dead-looking loved one’ effect marked as locked/paid",
+        "Non-paid users cannot export an image that includes the paid effect",
+        "Paid users can add the paid effect and export successfully",
+        "Backend stores and returns a per-user paid/unpaid status that the frontend uses to gate the paid effect"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/billing/usePaidAccess.ts",
+          "operation": "create",
+          "description": "Create a React Query hook that calls the backend capability for paid access (e.g., hasPaidAccess / user profile hasPaidTier) and exposes a stable paid/unpaid state to the editor UI. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/editor/effects/effectsCatalog.ts",
+          "operation": "modify",
+          "description": "Add the paid ‘dead-looking loved one’ effect definition with metadata indicating it is paid/locked when the user lacks access, so the effects panel can render lock state."
+        },
+        {
+          "path": "frontend/src/components/editor/EffectsPanel.tsx",
+          "operation": "modify",
+          "description": "Update the effects panel to clearly mark the paid effect as locked for non-paid users and to initiate an upgrade flow instead of adding the effect when locked."
+        },
+        {
+          "path": "frontend/src/components/editor/ExportButton.tsx",
+          "operation": "modify",
+          "description": "Prevent export when the edited composition includes the paid effect layer but the user is not paid; show an English explanation and link/call-to-action to upgrade."
+        },
+        {
+          "path": "frontend/src/components/upgrade/UpgradePanel.tsx",
+          "operation": "create",
+          "description": "Create an upgrade surface that explains the paid tier in English and triggers the backend capability to upgrade (e.g., upgradeToPaidTier), then refreshes paid access state. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire the upgrade surface into the app navigation and enable launching it from the locked paid effect entry points and export gating prompts."
+        }
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "summary": "Implement the paid effect workflow that prompts for a second image (loved one) and inserts it as a transformable layer with the same controls as other effects.",
+      "acceptanceCriteria": [
+        "Paid effect flow prompts for a second image input",
+        "The inserted loved-one layer can be transformed (move/scale/rotate) and adjusted (opacity/order) like other layers"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/editor/paid/DeadLovedOneFlow.tsx",
+          "operation": "create",
+          "description": "Implement the paid effect flow that, for paid users, prompts for a second image upload and creates a new image layer representing the ‘dead-looking loved one’ insertion."
+        },
+        {
+          "path": "frontend/src/components/editor/state/editorReducer.ts",
+          "operation": "modify",
+          "description": "Extend editor actions/state to support a custom uploaded-image layer type (for the loved one) that participates in the same transform/opacity/order system as other layers."
+        },
+        {
+          "path": "frontend/src/components/editor/LayerStack.tsx",
+          "operation": "modify",
+          "description": "Update layer rendering to support the loved-one image layer (using its uploaded image source) alongside existing static overlay effect layers."
+        },
+        {
+          "path": "frontend/src/components/editor/EffectsPanel.tsx",
+          "operation": "modify",
+          "description": "Wire selecting the paid effect to launch the second-image prompt workflow for paid users (and keep locked behavior for non-paid users)."
+        }
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "summary": "Add project persistence for signed-in users: save an edit session and list/reopen saved projects in the editor.",
+      "acceptanceCriteria": [
+        "User can save a project from the editor",
+        "User can view a list of saved projects",
+        "User can reopen a saved project and see the same layer configuration restored"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/projects/useProjects.ts",
+          "operation": "create",
+          "description": "Create React Query hooks to list user projects, fetch a project by id, and save a project using available backend capabilities; expose loading/error states for the UI. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/projects/ProjectsPanel.tsx",
+          "operation": "create",
+          "description": "Create a signed-in projects list UI that shows previously saved projects (title and timestamp/identifier as available) and allows opening a selected project into the editor."
+        },
+        {
+          "path": "frontend/src/components/editor/SaveProjectButton.tsx",
+          "operation": "create",
+          "description": "Add a Save action that serializes the current editor session (base photo reference and effect layer configuration metadata) and calls backend save capability, with clear English success/error feedback."
+        },
+        {
+          "path": "frontend/src/components/editor/persistence/serializeProject.ts",
+          "operation": "create",
+          "description": "Implement serialization/deserialization between frontend editor state and backend PhotoProject/EffectLayer structures (store layer config JSON in EffectLayer.config and keep intensity mapped from opacity/intensity)."
+        },
+        {
+          "path": "frontend/src/components/editor/PhotoEditorPage.tsx",
+          "operation": "modify",
+          "description": "Wire Save, load-from-project, and restore behavior: when opening a saved project, rebuild base image and layer stack from stored metadata so the editor matches the saved configuration."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire a projects surface into the app (without introducing extra unrelated pages): show the projects list for signed-in users and allow opening a project into the editor view."
+        },
+        {
+          "path": "frontend/src/components/projects/blobAdapters.ts",
+          "operation": "create",
+          "description": "Add helpers to convert between user-selected local files and ExternalBlob required by saved projects, using direct URL where available for display and bytes when needed for saving. Verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "summary": "Require user-facing safety/consent confirmation in English before editing/exporting, with explicit acknowledgement required to export.",
+      "acceptanceCriteria": [
+        "Before first export (or at first editor entry), the app displays a consent/rights confirmation in English",
+        "User must explicitly acknowledge the confirmation to proceed with exporting"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/consent/ConsentGate.tsx",
+          "operation": "create",
+          "description": "Implement an English consent/rights confirmation UI that explains permission/rights and entertainment/fictional nature; persist acknowledgement in local storage for the current browser/session policy."
+        },
+        {
+          "path": "frontend/src/components/editor/ExportButton.tsx",
+          "operation": "modify",
+          "description": "Require consent acknowledgement before allowing export; if not yet acknowledged, prompt the consent UI and block export until the user explicitly confirms."
+        },
+        {
+          "path": "frontend/src/components/editor/PhotoEditorPage.tsx",
+          "operation": "modify",
+          "description": "Optionally show the consent confirmation at first editor entry (in addition to export gating) so users see it early, while still enforcing explicit acknowledgement at export time."
+        }
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "summary": "Apply a consistent horror/paranormal visual theme across landing, editor, and upgrade surfaces (avoid a generic blue/purple palette).",
+      "acceptanceCriteria": [
+        "Theme is visually consistent across major screens",
+        "Theme is clearly horror/paranormal-inspired and does not rely on a generic blue/purple palette"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/index.css",
+          "operation": "create",
+          "description": "Create global styling (Tailwind base + CSS variables) for a horror/paranormal theme (dark, grainy, desaturated, sickly green/amber accents) and ensure all user-facing text remains English."
+        },
+        {
+          "path": "frontend/tailwind.config.js",
+          "operation": "modify",
+          "description": "Extend Tailwind theme tokens (colors, shadows, fonts if applicable) to support the app’s horror visual identity consistently across landing/editor/upgrade UIs."
+        },
+        {
+          "path": "frontend/src/components/layout/AppLayout.tsx",
+          "operation": "create",
+          "description": "Add a shared layout wrapper used by landing, editor, projects, and upgrade surfaces to ensure consistent typography, spacing, and background treatment."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wrap major surfaces with the shared layout and ensure consistent themed UI elements (headers, panels, buttons) without relying on a blue/purple default palette."
+        }
+      ]
+    },
+    {
+      "id": "REQ-10",
+      "summary": "Render the required generated static images as part of the frontend experience, referenced directly from frontend/public/assets/generated.",
+      "acceptanceCriteria": [
+        "Required generated images exist under frontend/public/assets/generated",
+        "Frontend references and displays the generated images without routing through the backend"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/public/assets/generated/app-logo.dim_512x512.png",
+          "operation": "create",
+          "description": "Add the generated app logo asset at the required path: frontend/public/assets/generated/app-logo.dim_512x512.png."
+        },
+        {
+          "path": "frontend/public/assets/generated/bg-grain-fog.dim_1920x1080.png",
+          "operation": "create",
+          "description": "Add the generated background asset at the required path: frontend/public/assets/generated/bg-grain-fog.dim_1920x1080.png."
+        },
+        {
+          "path": "frontend/public/assets/generated/effects-pack-preview.dim_1600x900.png",
+          "operation": "create",
+          "description": "Add the generated effects preview asset at the required path: frontend/public/assets/generated/effects-pack-preview.dim_1600x900.png."
+        },
+        {
+          "path": "frontend/src/components/landing/LandingHero.tsx",
+          "operation": "create",
+          "description": "Create a landing hero section that displays frontend/public/assets/generated/app-logo.dim_512x512.png and uses frontend/public/assets/generated/bg-grain-fog.dim_1920x1080.png as a subtle background visual (direct static reference, not via backend)."
+        },
+        {
+          "path": "frontend/src/components/editor/EffectsPanel.tsx",
+          "operation": "modify",
+          "description": "Reference and display frontend/public/assets/generated/effects-pack-preview.dim_1600x900.png in the effects library UI as a preview/visual aid (direct static reference, not via backend)."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire the landing hero into the landing surface so the generated logo/background are visible as part of the main frontend experience."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "kind": "spec_vs_diff_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-05T02:34:59.806Z",
+  "summary": "Diff implements a signed-in photo editor with upload + zoom/pan/reset viewport, an effects library (4 free + 1 paid flow with second-image upload), layer add/remove and ordering UI, export-to-PNG compositing, consent gating, and backend support for paid status and project persistence. Some per-layer transformation controls (scale/rotate/flip) and the overall horror-themed styling requirements are not fully evidenced in the provided diff summary.",
+  "missing_requirements": [
+    {
+      "id": "REQ-3",
+      "requirement": "For each added effect layer, provide per-layer controls: move, scale, rotate, flip horizontally, opacity/intensity, and layer ordering (bring forward/send backward).",
+      "reason": "The diff clearly shows move (drag handle), opacity, visibility, remove, and layer ordering (move up/down), but does not show implemented UI/controls for scaling and rotation, and flip is only suggested by an import without visible implementation in the truncated content.",
+      "evidence": [
+        "frontend/src/components/editor/LayerHandles.tsx",
+        "frontend/src/components/editor/LayerInspector.tsx (truncated)",
+        "frontend/src/components/editor/state/editorTypes.ts"
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "requirement": "Establish a coherent, distinct visual theme for the UI (colors, typography, layout) appropriate for a horror/paranormal photo editor and apply it consistently across landing, editor, and upgrade surfaces (avoid a blue/purple default palette).",
+      "reason": "Some horror-appropriate visuals are referenced (fog background, spooky logo), but the diff summary does not provide enough evidence of a consistently applied custom theme across landing/editor/upgrade, nor evidence that a default palette was replaced across the app.",
+      "evidence": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/landing/LandingHero.tsx",
+        "frontend/src/components/editor/PhotoEditorPage.tsx (truncated)",
+        "frontend/src/components/editor/EffectsPanel.tsx"
+      ]
+    }
+  ],
+  "hallucinated_features": [
+    {
+      "description": "User profile creation flow requiring a name (ProfileSetup) before using the app.",
+      "reason": "BuildRequest did not ask for collecting/storing a user name or forcing a profile-setup gate; it only required authentication via Internet Identity plus paid/unpaid status and project persistence.",
+      "evidence": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/auth/ProfileSetup.tsx",
+        "backend/main.mo"
+      ]
+    },
+    {
+      "description": "Integration of blob-storage and authorization/access-control mixins in the backend actor.",
+      "reason": "BuildRequest required a single Motoko actor and persistence/paid status, but did not request specific storage/authorization mixin libraries; these are additional implementation components beyond the stated requirements.",
+      "evidence": [
+        "backend/main.mo"
+      ]
+    }
+  ],
+  "confidence": 0.62,
+  "changed_files": [
+    "all_files_summary.json",
+    "backend/main.mo",
+    "frontend-file-summaries.txt",
+    "frontend/index.css",
+    "frontend/index.html",
+    "frontend/src/App.tsx",
+    "frontend/src/components/auth/LoginButton.tsx",
+    "frontend/src/components/auth/ProfileSetup.tsx",
+    "frontend/src/components/consent/ConsentGate.tsx",
+    "frontend/src/components/editor/CanvasViewport.tsx",
+    "frontend/src/components/editor/EffectsPanel.tsx",
+    "frontend/src/components/editor/ExportButton.tsx",
+    "frontend/src/components/editor/LayerHandles.tsx",
+    "frontend/src/components/editor/LayerInspector.tsx",
+    "frontend/src/components/editor/PhotoEditorPage.tsx",
+    "frontend/src/components/editor/SaveProjectButton.tsx",
+    "frontend/src/components/editor/effects/effectsCatalog.ts",
+    "frontend/src/components/editor/export/compositeToPng.ts",
+    "frontend/src/components/editor/hooks/useImageFile.ts",
+    "frontend/src/components/editor/paid/DeadLovedOneFlow.tsx",
+    "frontend/src/components/editor/persistence/serializeProject.ts",
+    "frontend/src/components/editor/state/editorReducer.ts",
+    "frontend/src/components/editor/state/editorTypes.ts",
+    "frontend/src/components/landing/LandingHero.tsx",
+    "frontend/src/components/landing/LandingPage.tsx",
+    "frontend/src/components/layout/AppLayout.tsx",
+    "frontend/src/components/layout/Footer.tsx",
+    "frontend/src/components/layout/Header.tsx",
+    "frontend/src/components/projects/ProjectsPanel.tsx",
+    "frontend/src/components/upgrade/UpgradePanel.tsx",
+    "frontend/src/hooks/useActor.ts",
+    "frontend/src/hooks/useInternetIdentity.ts",
+    "frontend/src/hooks/useQueries.ts",
+    "frontend/src/index.css",
+    "frontend/src/main.tsx",
+    "frontend/src/utils/urlParams.ts",
+    "frontend/tailwind.config.js",
+    "project_state.json"
+  ]
+}

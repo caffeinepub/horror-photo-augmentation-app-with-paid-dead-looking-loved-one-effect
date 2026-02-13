@@ -1,0 +1,181 @@
+{
+  "kind": "build_request",
+  "title": "Horror Photo Augmentation App with Paid ‘Dead-Looking Loved One’ Effect",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "text": "Create a photo editor flow that lets a signed-in user select/upload an existing photo and see it rendered in an editing canvas with basic controls (zoom, pan, reset view).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Create an app that uses your existing photos"
+        ]
+      },
+      "acceptanceCriteria": [
+        "User can upload/select an image file and see it displayed in an editor view",
+        "User can zoom in/out and pan the canvas",
+        "User can reset the view to fit the image"
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Implement a library of realistic horror overlay effects that can be added on top of the user’s photo: (1) creepy shadow man, (2) ghost entity, (3) glowing eyes, and (4) a disembodied hand positioned as if on a loved one’s shoulder.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "inserts a realistic creepy shadow man,  ghost entity, glowing eyes,  a disembodied hand on a love one's shoulder."
+        ]
+      },
+      "acceptanceCriteria": [
+        "User can add each of the four effects from an effects panel",
+        "Each added effect appears as a separate layer on the photo",
+        "User can remove an effect after adding it"
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "For each added effect layer, provide per-layer controls: move, scale, rotate, flip horizontally, opacity/intensity, and layer ordering (bring forward/send backward).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ]
+      },
+      "acceptanceCriteria": [
+        "User can reposition, resize, and rotate an effect layer",
+        "User can adjust opacity/intensity for an effect layer",
+        "User can reorder multiple effect layers so one renders above/below another"
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Add an export feature that generates a final composited image for download (e.g., PNG) from the user’s edited photo and effect layers.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ]
+      },
+      "acceptanceCriteria": [
+        "User can click an Export/Download action to save the edited image",
+        "Exported image includes the base photo and all visible effects with the current transforms and opacity settings"
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "text": "Implement a paid tier that unlocks an additional effect: inserting a ‘dead-looking loved one’ into the user’s photo. The UI must clearly mark this as a paid/locked effect for non-paid users and prevent export of results containing the paid effect unless the user is paid.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "The paid option let's you insert a dead looking loved one in your  photo."
+        ]
+      },
+      "acceptanceCriteria": [
+        "Non-paid users see the ‘dead-looking loved one’ effect marked as locked/paid",
+        "Non-paid users cannot export an image that includes the paid effect",
+        "Paid users can add the paid effect and export successfully",
+        "Backend stores and returns a per-user paid/unpaid status that the frontend uses to gate the paid effect"
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "text": "Create an effect workflow for the paid ‘dead-looking loved one’ feature that allows the user to upload/select a second image (the loved one) and place it into the base photo as a separate layer with the same layer controls as other effects (move/scale/rotate/opacity/order).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Paid effect flow prompts for a second image input",
+        "The inserted loved-one layer can be transformed (move/scale/rotate) and adjusted (opacity/order) like other layers"
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "text": "Add basic project persistence for signed-in users: allow saving an edit session (base photo reference + effect layer configuration metadata) and listing previously saved projects for reopening in the editor.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ]
+      },
+      "acceptanceCriteria": [
+        "User can save a project from the editor",
+        "User can view a list of saved projects",
+        "User can reopen a saved project and see the same layer configuration restored"
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "text": "Add user-facing safety/consent messaging and confirmations before editing/exporting: require the user to confirm they have rights/permission to use the photos they upload and that the edits are for entertainment/fictional effects. Use English for all user-facing text.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Before first export (or at first editor entry), the app displays a consent/rights confirmation in English",
+        "User must explicitly acknowledge the confirmation to proceed with exporting"
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "text": "Establish a coherent, distinct visual theme for the UI (colors, typography, layout) appropriate for a horror/paranormal photo editor and apply it consistently across landing, editor, and upgrade surfaces (avoid a blue/purple default palette).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Theme is visually consistent across major screens",
+        "Theme is clearly horror/paranormal-inspired and does not rely on a generic blue/purple palette"
+      ]
+    },
+    {
+      "id": "REQ-10",
+      "text": "Render the generated static images (from imageRequirements.required) as part of the frontend experience (e.g., app logo and a subtle background/hero visual), stored under frontend/public/assets/generated and referenced directly by the frontend.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Required generated images exist under frontend/public/assets/generated",
+        "Frontend references and displays the generated images without routing through the backend"
+      ]
+    }
+  ],
+  "constraints": [
+    "Backend must remain a single Motoko actor in backend/main.mo; do not introduce additional backend services.",
+    "Do not edit any files under frontend/src/components/ui or any paths listed as immutable in SYSTEM_CONTEXT.",
+    "Use Internet Identity for authentication (no third-party auth providers).",
+    "All user-facing text must be in English."
+  ],
+  "nonGoals": [
+    "Do not implement real-time collaboration or chat.",
+    "Do not integrate external databases or third-party image editing APIs.",
+    "Do not implement third-party social media sharing integrations."
+  ],
+  "imageRequirements": {
+    "required": [
+      "Spooky camera logo with subtle shadow silhouette and faint mist (app-logo.dim_512x512.png)",
+      "Dark grainy film-texture background with faint fog and vignette (bg-grain-fog.dim_1920x1080.png)",
+      "Set of four semi-realistic paranormal overlay assets: shadow man, ghost entity, glowing eyes pair, disembodied hand (effects-pack-preview.dim_1600x900.png)"
+    ],
+    "edits": []
+  }
+}

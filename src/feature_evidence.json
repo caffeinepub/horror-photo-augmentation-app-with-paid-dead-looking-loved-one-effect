@@ -1,0 +1,232 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-create-a-photo-editor-flow-that-lets-a-signed-in-user-select-upload-an-existing-photo-and-see-it-rendered-in-an-editing-canvas-with-basic-controls-zoom-pan-reset-view",
+      "featureTitle": "Create a photo editor flow that lets a signed-in user select/upload an existing photo and see it rendered in an editing canvas with basic controls (zoom, pan, reset view).",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/auth/LoginButton.tsx",
+        "frontend/src/components/editor/CanvasViewport.tsx",
+        "frontend/src/components/editor/PhotoEditorPage.tsx",
+        "frontend/src/components/editor/hooks/useImageFile.ts",
+        "frontend/src/components/editor/state/editorTypes.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-1"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-a-library-of-realistic-horror-overlay-effects-that-can-be-added-on-top-of-the-user-s-photo-1-creepy-shadow-man-2-ghost-entity-3-glowing-eyes-and-4-a-disembodied-hand-positioned-as-if-on-a-loved-one-s-shoulder",
+      "featureTitle": "Implement a library of realistic horror overlay effects that can be added on top of the user’s photo: (1) creepy shadow man, (2) ghost entity, (3) glowing eyes, and (4) a disembodied hand positioned as if on a loved one’s shoulder.",
+      "files": [
+        "frontend/src/components/editor/EffectsPanel.tsx",
+        "frontend/src/components/editor/effects/effectsCatalog.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-2"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-for-each-added-effect-layer-provide-per-layer-controls-move-scale-rotate-flip-horizontally-opacity-intensity-and-layer-ordering-bring-forward-send-backward",
+      "featureTitle": "For each added effect layer, provide per-layer controls: move, scale, rotate, flip horizontally, opacity/intensity, and layer ordering (bring forward/send backward).",
+      "files": [
+        "frontend/src/components/editor/LayerHandles.tsx",
+        "frontend/src/components/editor/LayerInspector.tsx",
+        "frontend/src/components/editor/state/editorReducer.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-3"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-an-export-feature-that-generates-a-final-composited-image-for-download-e-g-png-from-the-user-s-edited-photo-and-effect-layers",
+      "featureTitle": "Add an export feature that generates a final composited image for download (e.g., PNG) from the user’s edited photo and effect layers.",
+      "files": [
+        "frontend/src/components/editor/ExportButton.tsx",
+        "frontend/src/components/editor/PhotoEditorPage.tsx",
+        "frontend/src/components/editor/export/compositeToPng.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-4"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-a-paid-tier-that-unlocks-an-additional-effect-inserting-a-dead-looking-loved-one-into-the-user-s-photo-the-ui-must-clearly-mark-this-as-a-paid-locked-effect-for-non-paid-users-and-prevent-export-of-results-containing-the-paid-effect-unless-the-user-is-paid",
+      "featureTitle": "Implement a paid tier that unlocks an additional effect: inserting a ‘dead-looking loved one’ into the user’s photo. The UI must clearly mark this as a paid/locked effect for non-paid users and prevent export of results containing the paid effect unless the user is paid.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/editor/EffectsPanel.tsx",
+        "frontend/src/components/editor/ExportButton.tsx",
+        "frontend/src/components/editor/effects/effectsCatalog.ts",
+        "frontend/src/components/upgrade/UpgradePanel.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-5"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-an-effect-workflow-for-the-paid-dead-looking-loved-one-feature-that-allows-the-user-to-upload-select-a-second-image-the-loved-one-and-place-it-into-the-base-photo-as-a-separate-layer-with-the-same-layer-controls-as-other-effects-move-scale-rotate-opacity-order",
+      "featureTitle": "Create an effect workflow for the paid ‘dead-looking loved one’ feature that allows the user to upload/select a second image (the loved one) and place it into the base photo as a separate layer with the same layer controls as other effects (move/scale/rotate/opacity/order).",
+      "files": [
+        "frontend/src/components/editor/EffectsPanel.tsx",
+        "frontend/src/components/editor/paid/DeadLovedOneFlow.tsx",
+        "frontend/src/components/editor/state/editorReducer.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-6"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-basic-project-persistence-for-signed-in-users-allow-saving-an-edit-session-base-photo-reference-effect-layer-configuration-metadata-and-listing-previously-saved-projects-for-reopening-in-the-editor",
+      "featureTitle": "Add basic project persistence for signed-in users: allow saving an edit session (base photo reference + effect layer configuration metadata) and listing previously saved projects for reopening in the editor.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/editor/PhotoEditorPage.tsx",
+        "frontend/src/components/editor/SaveProjectButton.tsx",
+        "frontend/src/components/editor/persistence/serializeProject.ts",
+        "frontend/src/components/projects/ProjectsPanel.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-7"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-user-facing-safety-consent-messaging-and-confirmations-before-editing-exporting-require-the-user-to-confirm-they-have-rights-permission-to-use-the-photos-they-upload-and-that-the-edits-are-for-entertainment-fictional-effects-use-english-for-all-user-facing-text",
+      "featureTitle": "Add user-facing safety/consent messaging and confirmations before editing/exporting: require the user to confirm they have rights/permission to use the photos they upload and that the edits are for entertainment/fictional effects. Use English for all user-facing text.",
+      "files": [
+        "frontend/src/components/consent/ConsentGate.tsx",
+        "frontend/src/components/editor/ExportButton.tsx",
+        "frontend/src/components/editor/PhotoEditorPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-8"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-establish-a-coherent-distinct-visual-theme-for-the-ui-colors-typography-layout-appropriate-for-a-horror-paranormal-photo-editor-and-apply-it-consistently-across-landing-editor-and-upgrade-surfaces-avoid-a-blue-purple-default-palette",
+      "featureTitle": "Establish a coherent, distinct visual theme for the UI (colors, typography, layout) appropriate for a horror/paranormal photo editor and apply it consistently across landing, editor, and upgrade surfaces (avoid a blue/purple default palette).",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/layout/AppLayout.tsx",
+        "frontend/src/index.css",
+        "frontend/tailwind.config.js"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-9"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-render-the-generated-static-images-from-imagerequirements-required-as-part-of-the-frontend-experience-e-g-app-logo-and-a-subtle-background-hero-visual-stored-under-frontend-public-assets-generated-and-referenced-directly-by-the-frontend",
+      "featureTitle": "Render the generated static images (from imageRequirements.required) as part of the frontend experience (e.g., app logo and a subtle background/hero visual), stored under frontend/public/assets/generated and referenced directly by the frontend.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/editor/EffectsPanel.tsx",
+        "frontend/src/components/landing/LandingHero.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-10"
+      ],
+      "confidence": "high"
+    }
+  ]
+}
